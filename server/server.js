@@ -8,9 +8,15 @@ import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: ['https://yourdomain.com'], // Replace with your frontend URL
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api', apiRoutes);

@@ -1,17 +1,59 @@
+import axios from 'axios';
+import { useState } from 'react';
+
 export default function Booking() {
-    return (
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8">Schedule a Meeting</h2>
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            {/* Calendly Embed */}
-            <div
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/your-username"
-              style={{ minWidth: '320px', height: '630px' }}
-            />
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    startTime: '',
+    endTime: ''
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Book Calendar Event
+      const bookingResponse = await axios.post('/api/book-meeting', formData);
+      
+      // Send Confirmation Email
+      await axios.post('/api/send-email', {
+        to: formData.email,
+        subject: 'Meeting Confirmation',
+        text: `Your meeting is scheduled for ${formData.startTime}`
+      });
+
+      alert('Meeting booked successfully!');
+    } catch (error) {
+      alert('Booking failed. Please try again.');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Name"
+        required
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        required
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+      />
+      <input
+        type="datetime-local"
+        required
+        onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
+      />
+      <input
+        type="datetime-local"
+        required
+        onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+      />
+      <button type="submit">Book Now</button>
+    </form>
+  );
+}
