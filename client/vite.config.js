@@ -1,7 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+export default defineConfig(async () => {
+  const { default: tailwindcss } = await import('@tailwindcss/vite');
+
+  return {
+    plugins: [
+      react(),
+      tailwindcss(),
+    ],
+    root: '.',
+    server: {
+      port: 5174,
+    }
+  };
+});
+
