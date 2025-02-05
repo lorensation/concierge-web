@@ -1,24 +1,22 @@
-// src/app/page.js
+// src/app/page.jsx
 
-import Banner from '../components/Banner'
-import AboutMe from '../components/AboutMe'
-import Footer from '../components/Footer'
+import Banner from '@/components/Banner'
+import AboutPreview from '@/components/previews/AboutPreview'
+import BookingPreview from '@/components/previews/BookingPreview'
+import ReviewsPreview from '@/components/previews/ReviewsPreview'
+import ContactPreview from '@/components/previews/ContactPreview'
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div>
-      {/* Banner (Hero) */}
+    <main>
       <Banner />
-
-      {/* About Me Section */}
-      <AboutMe />
-
-      {/* Optionally add more sections here:
-          - Booking (Calendar integration)
-          - Reviews
-          - etc.
-      */}
-      <Footer />
-    </div>
+      {/* Minimal representations */}
+      <AboutPreview />
+      <BookingPreview />
+      <ReviewsPreview />
+      <ContactPreview />
+    </main>
   )
 }
+
+

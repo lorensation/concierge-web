@@ -1,34 +1,58 @@
 // src/components/Banner.jsx
+"use client"  // Needed because we use onClick
+
 import React from 'react'
-import Image from 'next/image'
-// Example: if you have a background image in /public folder
 
 export default function Banner() {
+  // Generic scroll function
+  const handleScrollToSection = (sectionId) => {
+    const targetElement = document.getElementById(sectionId)
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <section className="relative w-full h-[80vh] flex items-center justify-center bg-gray-100 overflow-hidden">
-      {/* Background Image (optional) 
-          You could use Image with fill layout or a background via Tailwind classes */}
+    <section className="relative w-full min-h-[80vh] flex items-center justify-center bg-gray-200">
+      {/* Background image (Tailwind approach). 
+         You can swap this for <Image> if you prefer the Next Image component. 
+      */}
+      <div
+        className="absolute inset-0 bg-[url('/banner.jpg')] bg-cover bg-center brightness-75"
+      />
       
-      {/* Example using a Tailwind background. You can also do <Image> if you prefer. */}
-      <div className="absolute inset-0 bg-[url('/globe.svg')] bg-cover bg-center opacity-10" />
-      
-      <div className="relative z-10 text-center max-w-2xl px-6">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-800">
+      <div className="relative z-10 text-center text-white px-4 max-w-3xl">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
           Exclusive Travel & Concierge Service
         </h1>
-        <p className="mt-4 text-lg md:text-xl text-gray-600">
-          30+ Years of Experience Across 20+ Countries
+        <p className="text-xl sm:text-2xl md:text-3xl font-light mb-8">
+          30+ Years of Experience in 20+ Countries
         </p>
-        <button
-          className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
-          onClick={() => {
-            // Example: you could direct them to /booking or open a modal
-            window.location.href = '/booking'
-          }}
-        >
-          Schedule a Call
-        </button>
+
+        {/* Example: Two CTA buttons (add more if needed) */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Scroll to Booking Section */}
+          <button
+            className="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 
+                       rounded-full text-lg transition"
+            onClick={() => handleScrollToSection('booking-section')}
+          >
+            Schedule a Call
+          </button>
+          
+          {/* Scroll to About Section */}
+          <button
+            className="bg-transparent border border-white text-white py-3 px-6 
+                       rounded-full text-lg hover:bg-white hover:text-indigo-600 
+                       transition"
+            onClick={() => handleScrollToSection('about')}
+          >
+            Learn More
+          </button>
+        </div>
       </div>
     </section>
   )
 }
+
+

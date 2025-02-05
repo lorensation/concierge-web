@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-"use client"  // If you plan to use client-side React features (like menu toggles)
+"use client"
 
 import React from 'react'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ export default function Navbar() {
           Truchic Experiences
         </Link>
       </div>
+      {/* Link directly to routes */}
       <div className="space-x-6">
         <Link href="/about" className="hover:text-gray-500 transition">
           About
@@ -29,3 +30,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
