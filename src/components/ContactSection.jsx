@@ -28,8 +28,8 @@ export default function ContactSection() {
         
         {/* WhatsApp & Phone */}
         <p className="mb-4">
-          WhatsApp: <a href="https://wa.me/1234567890" className="text-indigo-600 hover:underline">+1 234-567-890</a> <br />
-          Phone: <span className="text-gray-800">+1 123-456-7890</span>
+          WhatsApp: <a href="https://wa.me/0034649880864" className="text-indigo-600 hover:underline">+34 649 88 08 64</a> <br />
+          Phone: <span className="text-gray-800">+34 913 51 69 92</span>
         </p>
 
         {/* Contact Form */}
