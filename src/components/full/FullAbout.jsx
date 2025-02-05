@@ -1,8 +1,13 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+// Dynamically import react-slick
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 export default function FullAbout() {
   const carouselImages = [
