@@ -1,6 +1,6 @@
 // src/app/booking/page.jsx
 import React from 'react'
-import BookingSection from '@/components/BookingSection'  // Your existing booking logic
+import BookingSection from '@/components/full/BookingSection'  // Your existing booking logic
 
 export const metadata = {
   title: 'Booking | Truchic Experiences',
