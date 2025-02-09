@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import BookingCalendar from "./BookingCalendar";
+import BookingCalendar from "../BookingCalendar";
 
 export default function BookingSection() {
   const [selectedSlot, setSelectedSlot] = useState(null);
