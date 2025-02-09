@@ -1,24 +1,20 @@
 import { google } from 'googleapis'
 import { NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
 
 export async function GET() {
   try {
     const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
-    const keyPath = path.join(process.cwd(), 'src/config/google-calendar.json')
 
-    if (!fs.existsSync(keyPath)) {
-      return NextResponse.json({ error: 'Google Calendar credentials not found' }, { status: 500 })
-    }
-
+    // Load credentials from environment variable
+    const serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY)
+    
     const auth = new google.auth.GoogleAuth({
-      keyFile: keyPath,
+      credentials: serviceAccountKey,
       scopes: SCOPES
     })
 
     const calendar = google.calendar({ version: 'v3', auth })
-    const calendarId = 'your_calendar_id@group.calendar.google.com'  // Replace with your Google Calendar ID
+    const calendarId = process.env.GOOGLE_CALENDAR_ID  // Use env variable
 
     const now = new Date().toISOString()
     const response = await calendar.events.list({
@@ -42,3 +38,4 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch slots' }, { status: 500 })
   }
 }
+
