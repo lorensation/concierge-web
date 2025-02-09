@@ -40,4 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src/config/google-calendar.json
+src/config/concierge-web-276decd8d437.json
