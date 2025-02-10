@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay } from "date-fns";
+import { format, parse, startOfWeek, getDay, addHours } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import esES from "date-fns/locale/es";
 
-const locales = { "es": esES };
+const locales = { es: esES };
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -17,6 +17,7 @@ const localizer = dateFnsLocalizer({
 
 export default function BookingCalendar({ onSelectSlot }) {
   const [events, setEvents] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   useEffect(() => {
     const fetchAvailableSlots = async () => {
@@ -29,7 +30,7 @@ export default function BookingCalendar({ onSelectSlot }) {
         const formattedEvents = slots.map((slot) => ({
           start: new Date(slot.start),
           end: new Date(slot.end),
-          title: "Disponible",
+          title: "Reservado",
           allDay: false,
         }));
 
@@ -42,6 +43,27 @@ export default function BookingCalendar({ onSelectSlot }) {
     fetchAvailableSlots();
   }, []);
 
+  const handleSelectSlot = (slotInfo) => {
+    const selectedStart = new Date(slotInfo.start);
+    const selectedEnd = addHours(selectedStart, 1);
+
+    // Verificar si el slot seleccionado está ocupado
+    const isOverlapping = events.some(
+      (event) =>
+        (selectedStart >= event.start && selectedStart < event.end) ||
+        (selectedEnd > event.start && selectedEnd <= event.end)
+    );
+
+    if (isOverlapping) {
+      alert("Este horario ya está reservado. Selecciona otro.");
+      return;
+    }
+
+    const newSlot = { start: selectedStart, end: selectedEnd };
+    setSelectedSlot(newSlot);
+    onSelectSlot(newSlot);
+  };
+
   return (
     <div style={{ height: "500px", margin: "20px auto" }}>
       <Calendar
@@ -51,9 +73,10 @@ export default function BookingCalendar({ onSelectSlot }) {
         endAccessor="end"
         selectable
         defaultView="week"
-        onSelectSlot={onSelectSlot}
+        onSelectSlot={handleSelectSlot}
         style={{ height: 500 }}
       />
     </div>
   );
 }
+
