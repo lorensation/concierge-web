@@ -68,15 +68,30 @@ export default function BookingCalendar({ onSelectSlot }) {
     <div style={{ height: "500px", margin: "20px auto" }}>
       <Calendar
         localizer={localizer}
-        events={events}
+        events={[
+          ...events,
+          ...(selectedSlot
+            ? [{ start: selectedSlot.start, end: selectedSlot.end, title: "Seleccionado", isSelected: true }]
+            : []),
+        ]}
         startAccessor="start"
         endAccessor="end"
         selectable
         defaultView="week"
         onSelectSlot={handleSelectSlot}
         style={{ height: 500 }}
+        eventPropGetter={(event) => {
+          if (event.isSelected) {
+            return { style: { backgroundColor: "#FFD700", border: "2px solid #DAA520", color: "#000" } }; // Dorado
+          }
+          if (event.title === "Reservado") {
+            return { style: { backgroundColor: "#007BFF", color: "#FFF" } }; // Azul para los ocupados
+          }
+          return {};
+        }}
       />
     </div>
   );
 }
+
 
