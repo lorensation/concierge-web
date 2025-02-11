@@ -20,6 +20,8 @@ export default function BookingCalendar({ onSelectSlot }) {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const fetchAvailableSlots = async () => {
       try {
         const response = await fetch("/api/getAvailableSlots");
