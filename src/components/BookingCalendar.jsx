@@ -20,8 +20,6 @@ export default function BookingCalendar({ onSelectSlot }) {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    
     const fetchAvailableSlots = async () => {
       try {
         const response = await fetch("/api/getAvailableSlots");
@@ -32,7 +30,7 @@ export default function BookingCalendar({ onSelectSlot }) {
         const formattedEvents = slots.map((slot) => ({
           start: new Date(slot.start),
           end: new Date(slot.end),
-          title: "No disponible",
+          title: "Unavailable",
           allDay: false,
         }));
 
@@ -73,35 +71,56 @@ export default function BookingCalendar({ onSelectSlot }) {
         events={[
           ...events,
           ...(selectedSlot
-            ? [{ start: selectedSlot.start, end: selectedSlot.end, title: "Seleccionado", isSelected: true }]
+            ? [{ start: selectedSlot.start, end: selectedSlot.end, title: "Selected", isSelected: true }]
             : []),
         ]}
         startAccessor="start"
         endAccessor="end"
         selectable
         defaultView="week"
-        min={new Date().setHours(8, 0, 0, 0)} // Inicia el horario a las 8:00 AM
-        max={new Date().setHours(21, 0, 0, 0)} // Finaliza a las 9:00 PM
+        min={new Date(new Date().setHours(8, 0, 0, 0))}
+        max={new Date(new Date().setHours(22, 0, 0, 0))}
         onSelectSlot={handleSelectSlot}
         style={{ height: 500 }}
         eventPropGetter={(event) => {
-          if (event.isSelected) {
-            return { style: { backgroundColor: "#FFD700", border: "2px solid #DAA520", color: "#000" } }; // Dorado
-          }
-          if (event.title === "No disponible") {
-            return {
-              style: {
-                backgroundColor: "#A9A9A9", // Gris oscuro
-                color: "#FFF", // Texto blanco
-                width: "100%", // Ocupa toda la columna
-                textAlign: "center", // Centrado
-                fontSize: "0.9rem", // Ajusta tamaño del texto
-              },
-            };
-          }
+            if (event.isSelected) {
+              return { 
+                style: { 
+                  backgroundColor: "#FFD700", 
+                  border: "2px solid #DAA520", 
+                  color: "#000",
+                  width: "100%", // Ocupa toda la columna
+                  textAlign: "center", // Centra el texto
+                  display: "flex", // Asegura alineación correcta
+                  alignItems: "center", // Centra verticalmente
+                  justifyContent: "center", // Centra horizontalmente
+                  fontWeight: "bold", // Hace el texto más visible
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                } 
+              };
+            }
+            if (event.title === "Unavailable") {
+              return { 
+                style: { 
+                  backgroundColor: "#A9A9A9", 
+                  color: "#FFF",
+                  width: "100%", 
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "0.9rem",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                } 
+              };
+            }
           return {};
         }}
-      />
+        />
     </div>
   );
 }
