@@ -1,6 +1,4 @@
 // src/app/booking/page.jsx
-"use client";
-
 import React from 'react'
 import BookingSection from '@/components/full/BookingSection'  // Your existing booking logic
 
