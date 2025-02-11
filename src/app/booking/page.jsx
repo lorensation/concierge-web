@@ -1,6 +1,10 @@
 // src/app/booking/page.jsx
 import React from 'react'
-import BookingSection from '@/components/full/BookingSection'  // Your existing booking logic
+import dynamic from "next/dynamic";
+
+// Se carga el componente BookingSection como cliente
+const BookingSection = dynamic(() => import("../components/BookingSection"), { ssr: false });
+
 
 export const metadata = {
   title: 'Booking | Truchic Experiences',
