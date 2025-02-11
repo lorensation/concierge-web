@@ -30,7 +30,7 @@ export default function BookingCalendar({ onSelectSlot }) {
         const formattedEvents = slots.map((slot) => ({
           start: new Date(slot.start),
           end: new Date(slot.end),
-          title: "Reservado",
+          title: "No disponible",
           allDay: false,
         }));
 
@@ -78,14 +78,24 @@ export default function BookingCalendar({ onSelectSlot }) {
         endAccessor="end"
         selectable
         defaultView="week"
+        min={new Date().setHours(8, 0, 0, 0)} // Inicia el horario a las 8:00 AM
+        max={new Date().setHours(21, 0, 0, 0)} // Finaliza a las 9:00 PM
         onSelectSlot={handleSelectSlot}
         style={{ height: 500 }}
         eventPropGetter={(event) => {
           if (event.isSelected) {
             return { style: { backgroundColor: "#FFD700", border: "2px solid #DAA520", color: "#000" } }; // Dorado
           }
-          if (event.title === "Reservado") {
-            return { style: { backgroundColor: "#007BFF", color: "#FFF" } }; // Azul para los ocupados
+          if (event.title === "No disponible") {
+            return {
+              style: {
+                backgroundColor: "#A9A9A9", // Gris oscuro
+                color: "#FFF", // Texto blanco
+                width: "100%", // Ocupa toda la columna
+                textAlign: "center", // Centrado
+                fontSize: "0.9rem", // Ajusta tamaño del texto
+              },
+            };
           }
           return {};
         }}
@@ -93,5 +103,6 @@ export default function BookingCalendar({ onSelectSlot }) {
     </div>
   );
 }
+
 
 

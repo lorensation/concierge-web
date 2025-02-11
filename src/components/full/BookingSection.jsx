@@ -33,7 +33,7 @@ export default function BookingSection() {
   return (
     <section className="py-12 px-6 bg-gray-100">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Book a Meeting</h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Book a Meeting (GMT+1)</h2>
         <p className="text-gray-600 mb-6">
           Select an available time that suits you and we will send a confirmation email.
         </p>
