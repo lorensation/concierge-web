@@ -1,45 +1,63 @@
-import { google } from 'googleapis'
-import { NextResponse } from 'next/server'
+import { google } from "googleapis";
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(req) {
   try {
-    const { slot } = await req.json()
+    const { slot, user } = await req.json();
 
-    if (!slot) {
-      return NextResponse.json({ error: 'Missing slot information' }, { status: 400 })
+    if (!slot || !user) {
+      return NextResponse.json(
+        { error: "Missing slot or user information" },
+        { status: 400 }
+      );
     }
 
-    const SCOPES = ['https://www.googleapis.com/auth/calendar']
+    const adminEmail = process.env.BOOKING_NOTIFICATION_EMAIL;
+    const frontendUrl = process.env.FRONTEND_URL; // Asegúrate de configurar esto en tus variables de entorno
 
-    const serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY)
+    // 📩 **Enviar email de solicitud de reserva**
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-    // Fix private key formatting (convert escaped `\n` to actual newlines)
-    serviceAccountKey.private_key = serviceAccountKey.private_key.replace(/\\n/g, '\n')
+    const acceptLink = `${frontendUrl}/api/confirmBooking?slot=${encodeURIComponent(
+      slot
+    )}&email=${encodeURIComponent(user.email)}&name=${encodeURIComponent(user.name)}`;
 
-    const auth = new google.auth.GoogleAuth({
-      credentials: serviceAccountKey,
-      scopes: ['https://www.googleapis.com/auth/calendar']
-    })
+    const rejectLink = `${frontendUrl}/api/rejectBooking?email=${encodeURIComponent(
+      user.email
+    )}`;
 
-    const calendar = google.calendar({ version: 'v3', auth })
-    const calendarId = process.env.GOOGLE_CALENDAR_ID  // Use env variable
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: adminEmail,
+      subject: "New Booking Request",
+      html: `
+        <p><strong>New meeting request</strong></p>
+        <p><strong>Name:</strong> ${user.name}</p>
+        <p><strong>Email:</strong> ${user.email}</p>
+        <p><strong>Phone:</strong> ${user.phone}</p>
+        <p><strong>Requested Slot:</strong> ${slot}</p>
+        <p>Please choose an action:</p>
+        <a href="${acceptLink}" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Accept</a>
+        &nbsp;
+        <a href="${rejectLink}" style="background-color: red; color: white; padding: 10px; text-decoration: none;">Reject</a>
+      `,
+    };
 
-    const event = {
-      summary: 'Booked Meeting',
-      start: { dateTime: slot, timeZone: 'UTC' },
-      end: { dateTime: new Date(new Date(slot).getTime() + 30 * 60000).toISOString(), timeZone: 'UTC' },
-      attendees: [{ email: process.env.BOOKING_NOTIFICATION_EMAIL }],  // Notify yourself or clients
-    }
+    await transporter.sendMail(mailOptions);
 
-    await calendar.events.insert({
-      calendarId,
-      resource: event
-    })
-
-    return NextResponse.json({ success: true, message: 'Booking confirmed' }, { status: 200 })
+    return NextResponse.json(
+      { success: true, message: "Booking request sent for approval" },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Booking error:', error)
-    return NextResponse.json({ error: 'Failed to book slot' }, { status: 500 })
+    console.error("Booking error:", error);
+    return NextResponse.json({ error: "Failed to process booking" }, { status: 500 });
   }
 }
-
