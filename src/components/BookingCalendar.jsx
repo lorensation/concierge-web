@@ -83,43 +83,30 @@ export default function BookingCalendar({ onSelectSlot }) {
         onSelectSlot={handleSelectSlot}
         style={{ height: 500 }}
         eventPropGetter={(event) => {
-            if (event.isSelected) {
-              return { 
-                style: { 
-                  backgroundColor: "#FFD700", 
-                  border: "2px solid #DAA520", 
-                  color: "#000",
-                  width: "100%", // Ocupa toda la columna
-                  textAlign: "center", // Centra el texto
-                  display: "flex", // Asegura alineación correcta
-                  alignItems: "center", // Centra verticalmente
-                  justifyContent: "center", // Centra horizontalmente
-                  fontWeight: "bold", // Hace el texto más visible
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                } 
-              };
-            }
-            if (event.title === "Unavailable") {
-              return { 
-                style: { 
-                  backgroundColor: "#A9A9A9", 
-                  color: "#FFF",
-                  width: "100%", 
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.9rem",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                } 
-              };
-            }
+          if (event.isSelected) {
+            return {
+              className: "selected", // Add class for selected state
+              style: {
+                backgroundColor: "#FFD700",
+                border: "2px solid #DAA520",
+                color: "#000",
+                fontWeight: "bold",
+                padding: "5px", // Keep padding to prevent text overflow
+              },
+            };
+          }
+          if (event.title === "Unavailable") {
+            return {
+              style: {
+                backgroundColor: "#A9A9A9",
+                color: "#FFF",
+                fontSize: "0.9rem",
+                padding: "5px",
+              },
+            };
+          }
           return {};
-        }}
+        }}                             
         />
     </div>
   );

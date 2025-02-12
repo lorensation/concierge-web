@@ -70,3 +70,53 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Remove padding/margins from parent containers */
+.rbc-events-container {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Asegurar que los eventos ocupen toda la columna */
+.rbc-event {
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important; /* Elimina cualquier desplazamiento lateral */
+  margin: 0 !important;
+  border-radius: 4px !important;
+  display: block !important;
+  align-items: center !important;
+  justify-content: flex-start !important; /* Align content to top */
+  padding-top: 2px !important; /* Reduce top padding */
+  gap: 0 !important; /* Remove gap between label and content */
+}
+
+/* Asegurar que la etiqueta de hora sea más compacta */
+.rbc-event-label {
+  width: auto !important;
+  text-align: center !important;
+  font-size: 0.7rem !important; /* Reducir el tamaño */
+  font-weight: bold !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding: 2px 0 !important;
+  display: block !important; /* Asegura que no esté en línea con el contenido */
+}
+
+/* Asegurar que el contenido del evento esté debajo de la hora */
+.rbc-event-content {
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 0.75rem !important; /* Ajuste de tamaño */
+  font-weight: bold !important;
+  justify-content: center !important;
+  align-items: center !important;
+  line-height: 1.1 !important;
+  padding: 2px 5px !important;
+}
+
+
+
+
