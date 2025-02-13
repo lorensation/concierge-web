@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { format, utcToZonedTime } from "date-fns-tz";
+import { format } from "date-fns";
 
 export async function GET(req) {
   try {
@@ -31,8 +31,11 @@ export async function GET(req) {
     // **Crear evento en Google Calendar**
     const event = {
       summary: `Meeting with ${name}`,
-      start: { dateTime: slot, timeZone: "UTC" },
-      end: { dateTime: new Date(new Date(slot).getTime() + 60 * 60000).toISOString(), timeZone: "UTC" },
+      start: { dateTime: slot, timeZone: "Europe/Madrid" }, // ✅ Zona horaria correcta
+      end: { 
+        dateTime: new Date(new Date(slot).getTime() + 60 * 60000).toISOString(), 
+        timeZone: "Europe/Madrid" 
+      },
     };
 
     await calendar.events.insert({ calendarId, resource: event });
@@ -43,15 +46,18 @@ export async function GET(req) {
       auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
     });
 
-    const startDateTime = format(new Date(slot), "yyyyMMdd'T'HHmmss");
-    const endDateTime = format(new Date(new Date(slot).getTime() + 60 * 60000), "yyyyMMdd'T'HHmmss");
+    // **Convertir fecha correctamente para Google Calendar y email**
+    const startDateTimeMadrid = new Date(slot);
+    const endDateTimeMadrid = new Date(startDateTimeMadrid.getTime() + 60 * 60000);
+
+    const startDateTime = format(startDateTimeMadrid, "yyyyMMdd'T'HHmmss");
+    const endDateTime = format(endDateTimeMadrid, "yyyyMMdd'T'HHmmss");
 
     const eventLink = `https://calendar.google.com/calendar/r/eventedit?text=Meeting+with+${name}&dates=${startDateTime}/${endDateTime}&details=Your+meeting+is+confirmed&location=&sf=true`;
 
-    const madridTimeZone = "Europe/Madrid";
-    const slotDateTimeMadrid = utcToZonedTime(new Date(slot), madridTimeZone);
-
-    const formattedDate = format(slotDateTimeMadrid, "EEEE, dd MMMM yyyy 'at' HH:mm", { locale: es });
+    // **Formatear la fecha correctamente en español sin paquetes extra**
+    const options = { weekday: "long", day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" };
+    const formattedDate = startDateTimeMadrid.toLocaleDateString("es-ES", options);
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
