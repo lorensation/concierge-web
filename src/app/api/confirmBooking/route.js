@@ -2,7 +2,7 @@ import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { format } from "date-fns";
-import es from "date-fns/locale/es";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 export async function GET(req) {
   try {
@@ -49,7 +49,10 @@ export async function GET(req) {
 
     const eventLink = `https://calendar.google.com/calendar/r/eventedit?text=Meeting+with+${name}&dates=${startDateTime}/${endDateTime}&details=Your+meeting+is+confirmed&location=&sf=true`;
 
-    const formattedDate = format(new Date(slot), "EEEE, dd MMMM yyyy 'at' HH:mm", { locale: es });
+    const madridTimeZone = "Europe/Madrid";
+    const slotDateTimeMadrid = utcToZonedTime(new Date(slot), madridTimeZone);
+
+    const formattedDate = format(slotDateTimeMadrid, "EEEE, dd MMMM yyyy 'at' HH:mm", { locale: es });
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
