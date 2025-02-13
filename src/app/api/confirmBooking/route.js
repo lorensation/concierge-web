@@ -1,6 +1,8 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { format } from "date-fns";
+import es from "date-fns/locale/es";
 
 export async function GET(req) {
   try {
@@ -31,7 +33,7 @@ export async function GET(req) {
     const event = {
       summary: `Meeting with ${name}`,
       start: { dateTime: slot, timeZone: "UTC" },
-      end: { dateTime: new Date(new Date(slot).getTime() + 30 * 60000).toISOString(), timeZone: "UTC" },
+      end: { dateTime: new Date(new Date(slot).getTime() + 60 * 60000).toISOString(), timeZone: "UTC" },
     };
 
     await calendar.events.insert({ calendarId, resource: event });
@@ -42,14 +44,33 @@ export async function GET(req) {
       auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
     });
 
-    const eventLink = `https://calendar.google.com/calendar/r/eventedit?text=Meeting+with+${name}&dates=${encodeURIComponent(slot)}/${encodeURIComponent(new Date(new Date(slot).getTime() + 30 * 60000).toISOString())}&details=Your+meeting+is+confirmed&location=&sf=true`;
+    const startDateTime = format(new Date(slot), "yyyyMMdd'T'HHmmss");
+    const endDateTime = format(new Date(new Date(slot).getTime() + 60 * 60000), "yyyyMMdd'T'HHmmss");
+
+    const eventLink = `https://calendar.google.com/calendar/r/eventedit?text=Meeting+with+${name}&dates=${startDateTime}/${endDateTime}&details=Your+meeting+is+confirmed&location=&sf=true`;
+
+    const formattedDate = format(new Date(slot), "EEEE, dd MMMM yyyy 'at' HH:mm", { locale: es });
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Meeting Confirmed",
-      html: `<p>Your meeting for ${slot} has been confirmed.</p>
-            <p>You can add it to your Google Calendar by <a href="${eventLink}">clicking here</a>.</p>`,
+      subject: "Your Meeting is Confirmed",
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd;">
+          <h2 style="color: #4A90E2;">Your Meeting Confirmation</h2>
+          <p>Hello ${name},</p>
+          <p>Your meeting has been successfully confirmed.</p>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+          <p><strong>Duration:</strong> 1 hour</p>
+          <p>You can add it to your Google Calendar by clicking the button below:</p>
+          <a href="${eventLink}" 
+            style="background-color: #4A90E2; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;">
+            Add to Google Calendar
+          </a>
+          <p>If you have any questions, feel free to contact us.</p>
+          <p>Best regards,<br/>The Truchic Team</p>
+        </div>
+      `,
     };
 
     await transporter.sendMail(mailOptions);
