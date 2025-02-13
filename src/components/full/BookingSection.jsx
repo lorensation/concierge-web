@@ -59,7 +59,7 @@ export default function BookingSection() {
           </div>
         ) : (
           <>
-            {/* 📅 Calendario para seleccionar la franja horaria */}
+            {/* Calendario para seleccionar la franja horaria */}
             <BookingCalendar onSelectSlot={setSelectedSlot} />
 
             {selectedSlot && (
@@ -72,7 +72,7 @@ export default function BookingSection() {
               </div>
             )}
 
-            {/* 📌 Formulario solo aparece si el usuario ha seleccionado un slot */}
+            {/* Formulario solo aparece si el usuario ha seleccionado un slot */}
             {selectedSlot && (
               <form 
                 onSubmit={handleBooking} 
