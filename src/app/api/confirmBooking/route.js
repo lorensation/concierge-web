@@ -1,7 +1,6 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { format } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 
 export async function GET(req) {
