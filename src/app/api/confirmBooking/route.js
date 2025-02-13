@@ -32,7 +32,6 @@ export async function GET(req) {
       summary: `Meeting with ${name}`,
       start: { dateTime: slot, timeZone: "UTC" },
       end: { dateTime: new Date(new Date(slot).getTime() + 30 * 60000).toISOString(), timeZone: "UTC" },
-      attendees: [{ email }],
     };
 
     await calendar.events.insert({ calendarId, resource: event });
@@ -43,11 +42,14 @@ export async function GET(req) {
       auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
     });
 
+    const eventLink = `https://calendar.google.com/calendar/r/eventedit?text=Meeting+with+${name}&dates=${encodeURIComponent(slot)}/${encodeURIComponent(new Date(new Date(slot).getTime() + 30 * 60000).toISOString())}&details=Your+meeting+is+confirmed&location=&sf=true`;
+
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Meeting Confirmed",
-      html: `<p>Your meeting for ${slot} has been confirmed. Thank you!</p>`,
+      html: `<p>Your meeting for ${slot} has been confirmed.</p>
+            <p>You can add it to your Google Calendar by <a href="${eventLink}">clicking here</a>.</p>`,
     };
 
     await transporter.sendMail(mailOptions);
