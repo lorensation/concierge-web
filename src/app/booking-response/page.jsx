@@ -1,20 +1,23 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function BookingResponse() {
-  const searchParams = useSearchParams();
   const [status, setStatus] = useState({ loading: true, success: false, message: '' });
 
   useEffect(() => {
-    const action = searchParams.get('action');
-    const message = action === 'accepted' 
-      ? 'The meeting has been successfully confirmed.'
-      : 'The meeting has been rejected.';
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const action = params.get('action');
+      const message = action === 'accepted'
+        ? 'The meeting has been successfully confirmed.'
+        : action === 'rejected'
+          ? 'The meeting has been rejected.'
+          : 'An error occurred during the booking process.';
 
-    setStatus({ loading: false, success: true, message });
-  }, [searchParams]);
+      setStatus({ loading: false, success: action === 'accepted', message });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -35,4 +38,4 @@ export default function BookingResponse() {
       </div>
     </div>
   );
-} 
+}
