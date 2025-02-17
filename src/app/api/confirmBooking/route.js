@@ -9,6 +9,7 @@ export async function GET(req) {
     const slot = searchParams.get("slot");
     const email = searchParams.get("email");
     const name = searchParams.get("name");
+    const redirect = searchParams.get("redirect");
 
     if (!slot || !email || !name) {
       return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
@@ -31,7 +32,7 @@ export async function GET(req) {
     // **Crear evento en Google Calendar**
     const event = {
       summary: `Meeting with ${name}`,
-      start: { dateTime: slot, timeZone: "Europe/Madrid" }, // ✅ Zona horaria correcta
+      start: { dateTime: slot, timeZone: "Europe/Madrid" }, // Zona horaria Madrid
       end: { 
         dateTime: new Date(new Date(slot).getTime() + 60 * 60000).toISOString(), 
         timeZone: "Europe/Madrid" 
@@ -83,9 +84,10 @@ export async function GET(req) {
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ success: true, message: "Meeting confirmed" }, { status: 200 });
+    // Use the provided redirect URL or fall back to the default
+    return NextResponse.redirect(redirect || `${process.env.FRONTEND_URL}/booking-response?action=accepted`);
   } catch (error) {
     console.error("Confirmation error:", error);
-    return NextResponse.json({ error: "Failed to confirm booking" }, { status: 500 });
+    return NextResponse.redirect(`${process.env.FRONTEND_URL}/booking-response?action=error`);
   }
 }

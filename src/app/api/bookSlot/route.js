@@ -27,11 +27,13 @@ export async function POST(req) {
 
     const acceptLink = `${frontendUrl}/api/confirmBooking?slot=${encodeURIComponent(
       slot
-    )}&email=${encodeURIComponent(user.email)}&name=${encodeURIComponent(user.name)}`;
+    )}&email=${encodeURIComponent(user.email)}&name=${encodeURIComponent(
+      user.name
+    )}&redirect=${encodeURIComponent(`${frontendUrl}/booking-response?action=accepted`)}`;
 
     const rejectLink = `${frontendUrl}/api/rejectBooking?email=${encodeURIComponent(
       user.email
-    )}`;
+    )}&redirect=${encodeURIComponent(`${frontendUrl}/booking-response?action=rejected`)}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -44,9 +46,16 @@ export async function POST(req) {
         <p><strong>Phone:</strong> ${user.phone}</p>
         <p><strong>Requested Slot:</strong> ${slot}</p>
         <p>Please choose an action:</p>
-        <a href="${acceptLink}" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Accept</a>
-        &nbsp;
-        <a href="${rejectLink}" style="background-color: red; color: white; padding: 10px; text-decoration: none;">Reject</a>
+        <div style="margin-top: 20px;">
+          <a href="${acceptLink}" 
+             style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+             Accept Meeting
+          </a>
+          <a href="${rejectLink}" 
+             style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+             Reject Meeting
+          </a>
+        </div>
       `,
     };
 
