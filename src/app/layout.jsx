@@ -9,9 +9,6 @@ export const metadata = {
   description: 'Luxury travel and concierge services by a professional with 30+ years of experience.'
 }
 
-// If you want client-side interactions in the layout (like toggling a menu),
-// you can add "use client" at the top. But if it's static, it's not necessary.
-
 // "children" is the content of whatever page is currently active
 export default function RootLayout({ children }) {
   return (
