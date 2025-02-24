@@ -13,16 +13,13 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/about" className="text-white hover:text-gray-300 transition">
-            About Us
+            About
           </Link>
-          <Link href="/services" className="text-white hover:text-gray-300 transition">
+          <Link href="/booking" className="text-white hover:text-gray-300 transition">
             Services
           </Link>
-          <Link href="/portfolio" className="text-white hover:text-gray-300 transition">
-            Portfolio
-          </Link>
-          <Link href="/testimonials" className="text-white hover:text-gray-300 transition">
-            Testimonials
+          <Link href="/corporate" className="text-white hover:text-gray-300 transition">
+            Corporate
           </Link>
           <Link href="/contact" className="bg-white text-[#1B263B] px-6 py-2 rounded-full hover:bg-gray-200 transition">
             Contact Us
