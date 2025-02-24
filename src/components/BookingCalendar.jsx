@@ -1,71 +1,70 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay, addHours } from "date-fns";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import esES from "date-fns/locale/es";
+import { useState, useEffect } from "react"
+import { Calendar, dateFnsLocalizer } from "react-big-calendar"
+import { format, parse, startOfWeek, getDay, addHours } from "date-fns"
+import "react-big-calendar/lib/css/react-big-calendar.css"
+import esES from "date-fns/locale/es"
 
-const locales = { es: esES };
+const locales = { es: esES }
 const localizer = dateFnsLocalizer({
   format,
   parse,
   startOfWeek,
   getDay,
   locales,
-});
+})
 
 export default function BookingCalendar({ onSelectSlot }) {
-  const [events, setEvents] = useState([]);
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [events, setEvents] = useState([])
+  const [selectedSlot, setSelectedSlot] = useState(null)
 
   useEffect(() => {
     const fetchAvailableSlots = async () => {
       try {
-        const response = await fetch("/api/getAvailableSlots");
-        if (!response.ok) throw new Error("Error al obtener los espacios disponibles");
+        const response = await fetch("/api/getAvailableSlots")
+        if (!response.ok) throw new Error("Error al obtener los espacios disponibles")
 
-        const slots = await response.json();
+        const slots = await response.json()
 
         const formattedEvents = slots.map((slot) => ({
           start: new Date(slot.start),
           end: new Date(slot.end),
           title: "Unavailable",
           allDay: false,
-        }));
+        }))
 
-        setEvents(formattedEvents);
+        setEvents(formattedEvents)
       } catch (error) {
-        console.error("Error al obtener los espacios:", error);
+        console.error("Error al obtener los espacios:", error)
       }
-    };
+    }
 
-    fetchAvailableSlots();
-  }, []);
+    fetchAvailableSlots()
+  }, [])
 
   const handleSelectSlot = (slotInfo) => {
-    const selectedStart = new Date(slotInfo.start);
-    const selectedEnd = addHours(selectedStart, 1);
+    const selectedStart = new Date(slotInfo.start)
+    const selectedEnd = addHours(selectedStart, 1)
 
-    // Verificar si el slot seleccionado está ocupado
     const isOverlapping = events.some(
       (event) =>
         (selectedStart >= event.start && selectedStart < event.end) ||
-        (selectedEnd > event.start && selectedEnd <= event.end)
-    );
+        (selectedEnd > event.start && selectedEnd <= event.end),
+    )
 
     if (isOverlapping) {
-      alert("Este horario ya está reservado. Selecciona otro.");
-      return;
+      alert("Este horario ya está reservado. Selecciona otro.")
+      return
     }
 
-    const newSlot = { start: selectedStart, end: selectedEnd };
-    setSelectedSlot(newSlot);
-    onSelectSlot(newSlot);
-  };
+    const newSlot = { start: selectedStart, end: selectedEnd }
+    setSelectedSlot(newSlot)
+    onSelectSlot(newSlot)
+  }
 
   return (
-    <div style={{ height: "500px", margin: "20px auto" }}>
+    <div className="bg-white rounded-lg shadow-md p-6">
       <Calendar
         localizer={localizer}
         events={[
@@ -85,32 +84,29 @@ export default function BookingCalendar({ onSelectSlot }) {
         eventPropGetter={(event) => {
           if (event.isSelected) {
             return {
-              className: "selected", // Add class for selected state
+              className: "selected",
               style: {
-                backgroundColor: "#FFD700",
-                border: "2px solid #DAA520",
-                color: "#000",
+                backgroundColor: "#1B263B",
+                color: "#FFF",
                 fontWeight: "bold",
-                padding: "5px", // Keep padding to prevent text overflow
+                padding: "5px",
               },
-            };
+            }
           }
           if (event.title === "Unavailable") {
             return {
               style: {
-                backgroundColor: "#A9A9A9",
-                color: "#FFF",
+                backgroundColor: "#E0E0E0",
+                color: "#666",
                 fontSize: "0.9rem",
                 padding: "5px",
               },
-            };
+            }
           }
-          return {};
-        }}                             
-        />
+          return {}
+        }}
+      />
     </div>
-  );
+  )
 }
-
-
 
