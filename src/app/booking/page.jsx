@@ -1,5 +1,4 @@
 import BookingSection from "@/components/BookingSection"
-import Footer from "@/components/Footer"
 
 export const metadata = {
   title: "Booking | Truchic Experiences",
@@ -66,7 +65,6 @@ export default function BookingPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

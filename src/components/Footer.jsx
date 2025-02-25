@@ -8,15 +8,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Background watermark text */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <span className="text-[200px] font-serif text-white whitespace-nowrap">Truchic Experience</span>
+          <span className="text-[200px] font-serif text-white whitespace-nowrap">Truchic Experiences</span>
         </div>
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <Image src="/logo.png" alt="Truchic Experiences" width={200} height={80} className="mb-6" />
+            <Image src="/TruchicExperiencesFinalLogo.jpg" alt="Truchic Experiences" width={200} height={80} className="mb-6" />
             <p className="text-gray-300 max-w-sm">
-              Exclusive Travel And Concierge Services, Delivering Seamless Luxury And Personalized Journeys Backed By
+              Exclusive Travel And Event Services, Delivering Seamless Luxury And Personalized Journeys Backed By
               30+ Years Of Expertise.
             </p>
           </div>
@@ -41,13 +41,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="text-gray-300 hover:text-white transition">
-                  Portfolio
+                <Link href="/corporate" className="text-gray-300 hover:text-white transition">
+                  Corporate Events
                 </Link>
               </li>
               <li>
-                <Link href="/testimonials" className="text-gray-300 hover:text-white transition">
-                  Testimonials
+                <Link href="/contact" className="text-gray-300 hover:text-white transition">
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -117,7 +117,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-300 text-sm">© 2024 All rights reserved!</p>
+          <p className="text-gray-300 text-sm">© 2025 - All rights reserved</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-300 hover:text-white text-sm transition">
               Privacy policy

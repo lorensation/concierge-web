@@ -12,7 +12,7 @@ export default function AboutPage() {
     <main className="bg-white">
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center">
-        <Image src="/luxury-resort.jpg" alt="Luxury Resort" fill className="object-cover" priority />
+        <Image src="/banner-about.jpg" alt="Luxury Resort" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-6xl font-serif mb-4">
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[400px]">
-            <Image src="/waterfall.jpg" alt="Waterfall" fill className="object-cover rounded-lg" />
+            <Image src="/profile-photo.jpg" alt="Waterfall" fill className="object-cover rounded-lg" />
           </div>
           <div>
             <h2 className="text-4xl font-serif mb-6">
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="relative h-[60vh] flex items-center justify-center">
-        <Image src="/coastal-view.jpg" alt="Coastal View" fill className="object-cover" />
+        <Image src="/banner-about-2.jpg" alt="Coastal View" fill className="object-cover" />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
           <h2 className="text-4xl md:text-5xl font-serif mb-6">
