@@ -1,15 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { toast } from "react-hot-toast"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus(null)
 
     try {
       const response = await fetch("/api/contactSubmission", {
@@ -24,12 +25,11 @@ export default function ContactSection() {
         throw new Error("Failed to submit form")
       }
 
-      // Clear form
+      setSubmitStatus("success")
       setFormData({ name: "", email: "", message: "" })
-      toast.success("Message sent successfully!")
     } catch (error) {
       console.error("Submission error:", error)
-      toast.error("Failed to send message. Please try again.")
+      setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
     }
@@ -71,6 +71,19 @@ export default function ContactSection() {
             <p className="text-gray-600">Sunday: Closed</p>
           </div>
         </div>
+
+        {/* Status Message */}
+        {submitStatus && (
+          <div
+            className={`mb-6 p-4 rounded-md ${
+              submitStatus === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+            }`}
+          >
+            {submitStatus === "success"
+              ? "Thank you! Your message has been sent successfully."
+              : "There was an error sending your message. Please try again."}
+          </div>
+        )}
 
         {/* Contact Form */}
         <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-6 rounded-lg">
@@ -134,6 +147,4 @@ export default function ContactSection() {
     </section>
   )
 }
-
-
 
