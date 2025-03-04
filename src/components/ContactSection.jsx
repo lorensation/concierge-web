@@ -1,15 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "react-hot-toast"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError("")
+    setIsSubmitting(true)
 
     try {
       const response = await fetch("/api/contactSubmission", {
@@ -24,81 +24,116 @@ export default function ContactSection() {
         throw new Error("Failed to submit form")
       }
 
-      setSubmitted(true)
+      // Clear form
       setFormData({ name: "", email: "", message: "" })
+      toast.success("Message sent successfully!")
     } catch (error) {
       console.error("Submission error:", error)
-      setError("An error occurred. Please try again.")
+      toast.error("Failed to send message. Please try again.")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
-    <section id="contact" className="py-12 px-6 bg-gray-100">
+    <section className="bg-white py-12 px-6 sm:px-8 lg:px-12">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-[#1B263B]">Contact Us</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#1B263B] mb-4">Get in Touch</h2>
+          <p className="text-gray-600">We're here to help plan your perfect luxury experience</p>
+        </div>
 
-        {/* WhatsApp & Phone */}
-        <p className="mb-4">
-          WhatsApp:{" "}
-          <a href="https://wa.me/0034649880864" className="text-[#1B263B] hover:underline">
-            +34 649 88 08 64
-          </a>{" "}
-          <br />
-          Phone: <span className="text-gray-800">+34 913 51 69 92</span>
-        </p>
+        {/* Contact Information */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-semibold text-[#1B263B] mb-4">Contact Details</h3>
+            <p className="mb-2">
+              <span className="font-medium">WhatsApp:</span>{" "}
+              <a href="https://wa.me/0034649880864" className="text-[#1B263B] hover:underline">
+                +34 649 88 08 64
+              </a>
+            </p>
+            <p className="mb-2">
+              <span className="font-medium">Phone:</span> <span className="text-gray-600">+34 913 51 69 92</span>
+            </p>
+            <p>
+              <span className="font-medium">Email:</span>{" "}
+              <a href="mailto:infotruchic@gmail.com" className="text-[#1B263B] hover:underline">
+                infotruchic@gmail.com
+              </a>
+            </p>
+          </div>
+
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-semibold text-[#1B263B] mb-4">Office Hours</h3>
+            <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM (CET)</p>
+            <p className="text-gray-600">Saturday: 10:00 AM - 2:00 PM (CET)</p>
+            <p className="text-gray-600">Sunday: Closed</p>
+          </div>
+        </div>
 
         {/* Contact Form */}
-        {submitted ? (
-          <div className="bg-green-100 text-green-700 p-4 rounded">
-            Thank you! Your message has been sent. We'll get back to you soon.
+        <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-6 rounded-lg">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1B263B] focus:border-transparent"
+              required
+            />
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Name</label>
-              <input
-                type="text"
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:ring-[#1B263B] focus:border-[#1B263B]"
-                placeholder="John Doe"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:ring-[#1B263B] focus:border-[#1B263B]"
-                placeholder="john@example.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-              />
-            </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1B263B] focus:border-transparent"
+              required
+            />
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Message</label>
-              <textarea
-                rows="4"
-                className="mt-1 block w-full border border-gray-300 rounded p-2 focus:ring-[#1B263B] focus:border-[#1B263B]"
-                placeholder="Your message..."
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-              />
-            </div>
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1B263B] focus:border-transparent"
+              required
+            />
+          </div>
 
-            {error && <div className="text-red-600 text-sm">{error}</div>}
-
-            <button type="submit" className="bg-[#1B263B] text-white px-6 py-2 rounded hover:bg-[#2d3b50] transition">
-              Send Message
+          <div className="text-center">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`bg-[#1B263B] text-white px-8 py-3 rounded-md transition
+                ${isSubmitting ? "opacity-75 cursor-not-allowed" : "hover:bg-[#2d3b50]"}`}
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
-          </form>
-        )}
+          </div>
+        </form>
       </div>
     </section>
   )
 }
+
+
 

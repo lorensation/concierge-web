@@ -3,6 +3,7 @@
 import './globals.css'  // Tailwind and any global styling
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { Toaster } from "react-hot-toast"
 
 export const metadata = {
   title: 'Truchic Experiences - Conciergerie',
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-white text-gray-800"> 
+        ;<Toaster position="top-center" />
         <Navbar />
         <main className="min-h-screen">
           {children}

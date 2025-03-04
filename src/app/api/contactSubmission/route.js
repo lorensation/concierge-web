@@ -5,10 +5,18 @@ export async function POST(req) {
   try {
     const { name, email, message } = await req.json()
 
+    // Validate input
     if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+      return NextResponse.json({ error: "Name, email, and message are required" }, { status: 400 })
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
+    }
+
+    // Create email transporter
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -17,10 +25,11 @@ export async function POST(req) {
       },
     })
 
+    // Email template
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: "infotruchic@gmail.com",
-      subject: "New Contact Form Submission | Truchic Experiences",
+      subject: `New Contact Form Message from ${name}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -31,22 +40,32 @@ export async function POST(req) {
               .header { background-color: #1B263B; color: white; padding: 20px; text-align: center; }
               .content { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
               .footer { text-align: center; padding: 20px; font-size: 12px; color: #666; }
+              .detail { margin-bottom: 15px; }
+              .message { background-color: white; padding: 15px; border-radius: 5px; margin-top: 15px; }
             </style>
           </head>
           <body>
             <div class="container">
               <div class="header">
-                <h1>New Contact Form Submission</h1>
+                <h1>New Contact Form Message</h1>
               </div>
               <div class="content">
-                <h2>Contact Details</h2>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <h2>Message</h2>
-                <p>${message}</p>
+                <div class="detail">
+                  <strong>Name:</strong> ${name}
+                </div>
+                <div class="detail">
+                  <strong>Email:</strong> ${email}
+                </div>
+                <div class="detail">
+                  <strong>Message:</strong>
+                  <div class="message">
+                    ${message.replace(/\n/g, "<br>")}
+                  </div>
+                </div>
               </div>
               <div class="footer">
-                <p>This is an automated message from Truchic Experiences contact form.</p>
+                <p>This message was sent from the Truchic Experiences contact form.</p>
+                <p>© ${new Date().getFullYear()} Truchic Experiences</p>
               </div>
             </div>
           </body>
@@ -54,12 +73,15 @@ export async function POST(req) {
       `,
     }
 
+    // Send email
     await transporter.sendMail(mailOptions)
 
-    return NextResponse.json({ success: true, message: "Contact form submitted successfully" }, { status: 200 })
+    return NextResponse.json({ success: true, message: "Message sent successfully" }, { status: 200 })
   } catch (error) {
-    console.error("Contact form submission error:", error)
-    return NextResponse.json({ error: "Failed to submit contact form" }, { status: 500 })
+    console.error("Contact form error:", error)
+    return NextResponse.json({ error: "Failed to send message" }, { status: 500 })
   }
 }
+
+
 
