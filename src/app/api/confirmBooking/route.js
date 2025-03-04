@@ -63,7 +63,7 @@ export async function GET(req) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your Luxury Consultation is Confirmed | Truchic Experiences",
+      subject: "Your Consultation is Confirmed | Truchic Experiences",
       html: `
         <!DOCTYPE html>
         <html>
@@ -83,17 +83,17 @@ export async function GET(req) {
           <body>
             <div class="container">
               <div class="header">
-                <h1>Your Luxury Consultation is Confirmed</h1>
+                <h1>Your Consultation is Confirmed</h1>
               </div>
               <div class="content">
                 <p>Dear ${name},</p>
-                <p>We are delighted to confirm your luxury consultation with Truchic Experiences.</p>
+                <p>We are delighted to confirm your consultation with Truchic Experiences.</p>
                 
                 <div class="details">
                   <h2>Consultation Details</h2>
                   <p><strong>Date:</strong> ${formattedDate}</p>
                   <p><strong>Duration:</strong> 1 hour</p>
-                  <p><strong>Format:</strong> Video Conference</p>
+                  <p><strong>Format:</strong> Video or Audio Conference</p>
                 </div>
 
                 <p>To prepare for your consultation, please:</p>

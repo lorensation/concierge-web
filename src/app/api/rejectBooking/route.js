@@ -44,7 +44,7 @@ export async function GET(req) {
               </div>
               <div class="content">
                 <p>Dear valued client,</p>
-                <p>Thank you for your interest in Truchic Experiences' luxury travel services.</p>
+                <p>Thank you for your interest in Truchic Experiences' travel services.</p>
                 <p>Unfortunately, we are unable to accommodate your requested consultation time. This could be due to:</p>
                 <ul>
                   <li>Schedule conflicts with existing appointments</li>

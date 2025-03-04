@@ -36,7 +36,7 @@ export default function AboutPage() {
             <h2 className="text-4xl font-serif mb-6">
               Meet the Visionary
               <br />
-              TruChic Experiences
+              Truchic Experiences
             </h2>
             <p className="text-gray-600 mb-8">
               Meet the visionary behind Truchic Experiences, whose passion for luxury travel and over 30 years of
@@ -51,7 +51,7 @@ export default function AboutPage() {
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#1B263B]">500+</div>
-                <div className="text-sm text-gray-600">Luxury Destinations</div>
+                <div className="text-sm text-gray-600"> Destinations</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#1B263B]">99%</div>
@@ -143,7 +143,7 @@ export default function AboutPage() {
             companies such as Aman, Apple, Dior and many more.
           </p>
           <Link
-            href="/contact"
+            href="/bookings"
             className="bg-white text-[#1B263B] px-8 py-3 rounded-full hover:bg-gray-200 transition inline-block"
           >
             Schedule a Call

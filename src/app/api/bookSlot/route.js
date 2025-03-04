@@ -35,7 +35,7 @@ export async function POST(req) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: adminEmail,
-      subject: "New Luxury Consultation Request | Truchic Experiences",
+      subject: "New Consultation Request | Truchic Experiences",
       html: `
         <!DOCTYPE html>
         <html>
@@ -54,7 +54,7 @@ export async function POST(req) {
           <body>
             <div class="container">
               <div class="header">
-                <h1>New Luxury Consultation Request</h1>
+                <h1>New Consultation Request</h1>
               </div>
               <div class="content">
                 <h2>Client Details</h2>
