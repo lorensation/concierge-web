@@ -55,7 +55,7 @@ export async function GET(req) {
                 <p>We would be delighted to find an alternative time that works better for you.</p>
                 
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${frontendUrl}/booking" class="button">Schedule New Consultation</a>
+                  <a href="${process.env.FRONTEND_URL}/booking" class="button">Schedule New Consultation</a>
                 </div>
               </div>
 
