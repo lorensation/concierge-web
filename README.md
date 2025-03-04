@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project by lorensation bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Truchic Experiences - Luxury Travel Concierge
 
-## Getting Started
+## About the Project
 
-First, run the development server:
+Truchic Experiences is a high-end luxury travel concierge service, offering bespoke travel experiences and personalized itineraries. This web application serves as the digital face of the business, allowing clients to learn about our services, book consultations, and get in touch with our expert travel advisors.
 
-```bash
+## Developer Information
+
+**Name:** Lorenzo Sanz Trucharte
+**Email:** lsanztrucharte@gmail.com
+**LinkedIn:** [Lorenzo Sanz Trucharte](https://www.linkedin.com/in/lorenzo-sanz-trucharte-534467121/)
+**GitHub:** [lorensanz](https://github.com/lorensation)
+
+## Technologies Used
+
+- Next.js 13 (App Router)
+- React
+- Tailwind CSS
+- Node.js
+- Nodemailer
+- Google Calendar API
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+- A Gmail account for sending emails
+- A Google Cloud Platform account with Calendar API enabled
+
+## Installation
+
+1. Clone the repository:
+
+git clone [https://github.com/lorensanz/truchic-experiences.git]
+
+2. Install the dependencies:
+
+npm install
+
+3. Create a `.env.local` file in the root directory and add the following environment variables:
+
+
+BOOKING_NOTIFICATION_EMAIL=[your_notification_email@example.com]
+FRONTEND_URL=[http://localhost:3000] # Change this in production
+EMAIL_USER=[your_gmail_username@gmail.com]
+EMAIL_PASS=your_gmail_password
+GOOGLE_SERVICE_ACCOUNT_KEY={"type": "service_account", ...} # Your full service account key JSON
+GOOGLE_CALENDAR_ADMIN_EMAIL=[your_admin_email@example.com]
+GOOGLE_CALENDAR_ID=[your_calendar_id@group.calendar.google.com]
+
+
+
+4. Set up Google Calendar API:
+- Go to the Google Cloud Console
+- Create a new project
+- Enable the Google Calendar API
+- Create a service account and download the JSON key
+- Share your Google Calendar with the service account email
+
+## Running the Application
+
+To run the application in development mode:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To create a production build:
 
-## Learn More
+npm run build
 
-To learn more about Next.js, take a look at the following resources:
+To start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Responsive design for all device sizes
+- Interactive booking system integrated with Google Calendar
+- Contact form with email notifications
+- About page showcasing the luxury travel experiences
+- Terms and Conditions page
+- Privacy Policy page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+This project is set up to be easily deployed on Vercel. Connect your GitHub repository to Vercel for automatic deployments.
+
+Remember to set up your environment variables in the Vercel dashboard.
+
+## Contributing
+
+As this is a personal project for Truchic Experiences, contributions are not currently being accepted. However, feedback and suggestions are always welcome.
+
+## License
+
+This project is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this project, via any medium, is strictly prohibited.
+
+Thank you for your interest in Truchic Experiences. For any questions or inquiries, please contact Lorenzo Sanz Trucharte at lsanztrucharte@gmail.com.
+
