@@ -63,24 +63,69 @@ export async function GET(req) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: "Your Meeting is Confirmed",
+      subject: "Your Luxury Consultation is Confirmed | Truchic Experiences",
       html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd;">
-          <h2 style="color: #4A90E2;">Your Meeting Confirmation</h2>
-          <p>Hello ${name},</p>
-          <p>Your meeting has been successfully confirmed.</p>
-          <p><strong>Date:</strong> ${formattedDate}</p>
-          <p><strong>Duration:</strong> 1 hour</p>
-          <p>You can add it to your Google Calendar by clicking the button below:</p>
-          <a href="${eventLink}" 
-            style="background-color: #4A90E2; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; border-radius: 5px;">
-            Add to Google Calendar
-          </a>
-          <p>If you have any questions, feel free to contact us.</p>
-          <p>Best regards,<br/>The Truchic Team</p>
-        </div>
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+              .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+              .header { background-color: #1B263B; color: white; padding: 20px; text-align: center; }
+              .content { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+              .button { display: inline-block; padding: 12px 24px; text-decoration: none; border-radius: 5px; margin: 10px; background-color: #1B263B; color: white; }
+              .details { background-color: white; padding: 15px; border-radius: 5px; margin: 20px 0; }
+              .footer { text-align: center; padding: 20px; font-size: 12px; color: #666; }
+              .social-links { margin: 20px 0; text-align: center; }
+              .social-links a { margin: 0 10px; color: #1B263B; text-decoration: none; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <h1>Your Luxury Consultation is Confirmed</h1>
+              </div>
+              <div class="content">
+                <p>Dear ${name},</p>
+                <p>We are delighted to confirm your luxury consultation with Truchic Experiences.</p>
+                
+                <div class="details">
+                  <h2>Consultation Details</h2>
+                  <p><strong>Date:</strong> ${formattedDate}</p>
+                  <p><strong>Duration:</strong> 1 hour</p>
+                  <p><strong>Format:</strong> Video Conference</p>
+                </div>
+
+                <p>To prepare for your consultation, please:</p>
+                <ul>
+                  <li>Have your travel preferences and dates ready</li>
+                  <li>Prepare any specific questions or requirements</li>
+                  <li>Ensure you have a stable internet connection</li>
+                </ul>
+
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="${eventLink}" class="button">Add to Calendar</a>
+                </div>
+
+                <p><strong>Need to reschedule?</strong> Please contact us at least 24 hours before your appointment.</p>
+              </div>
+
+              <div class="social-links">
+                <p>Follow us for luxury travel inspiration:</p>
+                <a href="#">Instagram</a> |
+                <a href="#">Facebook</a> |
+                <a href="#">LinkedIn</a>
+              </div>
+
+              <div class="footer">
+                <p>By proceeding with this consultation, you agree to our <a href="${frontendUrl}/terms">Terms and Conditions</a> and <a href="${frontendUrl}/privacy">Privacy Policy</a>.</p>
+                <p>© ${new Date().getFullYear()} Truchic Experiences. All rights reserved.</p>
+              </div>
+            </div>
+          </body>
+        </html>
       `,
-    };
+    }
 
     await transporter.sendMail(mailOptions);
 

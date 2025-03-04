@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import BookingCalendar from "./BookingCalendar"
 import { format } from "date-fns"
 import esES from "date-fns/locale/es"
@@ -14,6 +14,30 @@ export default function BookingSection() {
     email: "",
     phone: "",
   })
+
+  // Reset form after submission
+  useEffect(() => {
+    let timeoutId
+    if (submitted) {
+      timeoutId = setTimeout(() => {
+        setSubmitted(false)
+        setSelectedSlot(null)
+        setFormData({
+          name: "",
+          surname: "",
+          email: "",
+          phone: "",
+        })
+      }, 60000) // 60 seconds = 1 minute
+    }
+
+    // Cleanup timeout on component unmount or when submitted changes
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+    }
+  }, [submitted])
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -51,7 +75,8 @@ export default function BookingSection() {
         <h2 className="text-3xl font-serif mb-6 text-center">Book Your Luxury Consultation</h2>
         {submitted ? (
           <div className="bg-green-100 text-green-700 p-4 rounded text-center">
-            Thank you! Your request has been processed. We'll be in touch shortly to confirm your appointment.
+            <p>Thank you! Your request has been processed. We'll be in touch shortly to confirm your appointment.</p>
+            <p className="text-sm mt-2">This message will disappear in 60 seconds.</p>
           </div>
         ) : (
           <>
