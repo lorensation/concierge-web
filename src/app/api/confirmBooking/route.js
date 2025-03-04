@@ -118,7 +118,7 @@ export async function GET(req) {
               </div>
 
               <div class="footer">
-                <p>By proceeding with this consultation, you agree to our <a href="${frontendUrl}/terms">Terms and Conditions</a> and <a href="${frontendUrl}/privacy">Privacy Policy</a>.</p>
+                <p>By proceeding with this consultation, you agree to our <a href="${process.env.FRONTEND_URL}/terms">Terms and Conditions</a> and <a href="${process.env.FRONTEND_URL}/privacy">Privacy Policy</a>.</p>
                 <p>© ${new Date().getFullYear()} Truchic Experiences. All rights reserved.</p>
               </div>
             </div>

@@ -67,7 +67,7 @@ export async function GET(req) {
               </div>
 
               <div class="footer">
-                <p>This email is covered by our <a href="${frontendUrl}/privacy">Privacy Policy</a>.</p>
+                <p>This email is covered by our <a href="${process.env.FRONTEND_URL}/privacy">Privacy Policy</a>.</p>
                 <p>© ${new Date().getFullYear()} Truchic Experiences. All rights reserved.</p>
               </div>
             </div>
