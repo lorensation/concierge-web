@@ -5,7 +5,7 @@ import { useState } from "react"
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,15 +21,18 @@ export default function ContactSection() {
         body: JSON.stringify(formData),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error("Failed to submit form")
+        throw new Error(data.error || "Failed to submit form")
       }
 
-      setSubmitStatus(true)
+      console.log("Form submitted successfully:", data)
+      setSubmitStatus("success")
       setFormData({ name: "", email: "", message: "" })
     } catch (error) {
       console.error("Submission error:", error)
-      setSubmitStatus(false)
+      setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
     }
@@ -147,4 +150,6 @@ export default function ContactSection() {
     </section>
   )
 }
+
+
 

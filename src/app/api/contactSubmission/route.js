@@ -10,6 +10,8 @@ export async function POST(req) {
       return NextResponse.json({ error: "Name, email, and message are required" }, { status: 400 })
     }
 
+    console.log("Received form data:", { name, email, message })
+
     // Create email transporter
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -69,6 +71,8 @@ export async function POST(req) {
 
     // Send email
     await transporter.sendMail(mailOptions)
+
+    console.log("Email sent successfully")
 
     return NextResponse.json({ success: true, message: "Message sent successfully" }, { status: 200 })
   } catch (error) {
