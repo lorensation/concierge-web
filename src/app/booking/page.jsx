@@ -11,7 +11,7 @@ export default function BookingPage() {
       <main className="bg-white">
         {/* Hero Section */}
         <section className="relative h-[50vh] flex items-center justify-center">
-          <div className="absolute inset-0 bg-[url('/luxury-booking.jpg')] bg-cover bg-center bg-no-repeat"></div>
+          <div className="absolute inset-0 bg-[url('/banner-booking.jpg')] bg-cover bg-center bg-no-repeat"></div>
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="relative z-10 text-center text-white px-4">
             <h1 className="text-4xl md:text-6xl font-serif mb-4">Schedule Your Consultation</h1>

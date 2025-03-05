@@ -117,13 +117,13 @@ export default function AboutPage() {
           <h2 className="text-4xl font-serif text-center mb-12">A Glimpse of Our Work</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="relative h-[300px] transform hover:scale-105 transition duration-500">
-              <Image src="/destination-1.jpg" alt="Luxury Destination" fill className="object-cover rounded-lg" />
+              <Image src="/glimpse-work-1.jpg" alt="Glimpse of Work" fill className="object-cover rounded-lg" />
             </div>
             <div className="relative h-[300px] transform hover:scale-105 transition duration-500">
-              <Image src="/destination-2.jpg" alt="Luxury Destination" fill className="object-cover rounded-lg" />
+              <Image src="/glimpse-work-2.jpg" alt="Glimpse of Work" fill className="object-cover rounded-lg" />
             </div>
             <div className="relative h-[300px] transform hover:scale-105 transition duration-500">
-              <Image src="/destination-3.jpg" alt="Luxury Destination" fill className="object-cover rounded-lg" />
+              <Image src="/glimpse-work-3.jpg" alt="Glimpse of Work" fill className="object-cover rounded-lg" />
             </div>
           </div>
         </div>

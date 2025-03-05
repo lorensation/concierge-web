@@ -39,16 +39,14 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="bg-white py-12 px-6 sm:px-8 lg:px-12">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#1B263B] mb-4">Get in Touch</h2>
-          <p className="text-gray-600">We're here to help plan your perfect luxury experience</p>
-        </div>
+    <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+      <div className="p-8">
+        <h2 className="text-3xl font-serif mb-6 text-center">Get in Touch</h2>
+        <p className="text-center text-gray-600 mb-8">We're here to help plan your perfect luxury experience</p>
 
         {/* Contact Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <div className="text-center md:text-left">
+          <div>
             <h3 className="text-xl font-semibold text-[#1B263B] mb-4">Contact Details</h3>
             <p className="mb-2">
               <span className="font-medium">WhatsApp:</span>{" "}
@@ -67,7 +65,7 @@ export default function ContactSection() {
             </p>
           </div>
 
-          <div className="text-center md:text-left">
+          <div>
             <h3 className="text-xl font-semibold text-[#1B263B] mb-4">Office Hours</h3>
             <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM (CET)</p>
             <p className="text-gray-600">Saturday: 10:00 AM - 2:00 PM (CET)</p>
@@ -89,7 +87,7 @@ export default function ContactSection() {
         )}
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-6 rounded-lg">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Name
@@ -147,9 +145,6 @@ export default function ContactSection() {
           </div>
         </form>
       </div>
-    </section>
+    </div>
   )
 }
-
-
-

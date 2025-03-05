@@ -50,12 +50,12 @@ export default function Home() {
             </button>
             <div className="flex gap-6 overflow-x-auto pb-6">
               <ServiceCard
-                image="/luxury-villa.jpg"
+                image="/luxury-villa-water.jpg"
                 title="Luxury Travel Planning"
                 description="Tailored itineraries for the discerning traveler"
               />
               <ServiceCard
-                image="/corporate-travel.jpg"
+                image="/corporate-event-tables.jpg"
                 title="Corporate Travel & Events"
                 description="Seamless business travel solutions"
               />
@@ -76,7 +76,7 @@ export default function Home() {
       <section className="py-20 px-4 bg-[#0D1218]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[600px]">
-            <Image src="/luxury-pool.jpg" alt="Luxury pool" fill className="object-cover rounded-lg" />
+            <Image src="/luxury-pool-infinite.jpg" alt="Luxury pool" fill className="object-cover rounded-lg" />
           </div>
           <div>
             <h2 className="text-4xl font-serif mb-6">
@@ -110,14 +110,14 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="/destination-1.jpg"
+                src="/luxury-travel-plane.jpg"
                 alt="Travel destination"
                 width={300}
                 height={400}
                 className="rounded-lg"
               />
               <Image
-                src="/destination-2.jpg"
+                src="/travel-holiday-2.jpg"
                 alt="Travel destination"
                 width={300}
                 height={400}
@@ -165,7 +165,7 @@ export default function Home() {
             {/* Testimonial cards would go here */}
             <TestimonialCard
               name="John Newell"
-              image="/testimonial-1.jpg"
+              image="/client-review.jpg"
               text="Exceptional service and attention to detail. The team went above and beyond."
               rating={5}
             />
