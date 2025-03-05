@@ -1,8 +1,8 @@
 // src/app/layout.js
-
-import './globals.css'  // Tailwind and any global styling
+import './globals.css'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: 'Truchic Experiences - Conciergerie',
@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="min-h-screen">
           {children}
+          <SpeedInsights />
         </main>
         <Footer />
       </body>
