@@ -12,7 +12,7 @@ export default function CorporatePage() {
     <main className="bg-white">
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center">
-        <Image src="/corporate-event.jpg" alt="Luxury Corporate Event" fill className="object-cover" priority />
+        <Image src="/corporate-banner.jpg" alt="Luxury Corporate Event" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-6xl font-serif mb-4">
@@ -72,16 +72,16 @@ export default function CorporatePage() {
           <h2 className="text-4xl font-serif text-center mb-16">Notable Collaborations</h2>
           <div className="grid md:grid-cols-2 gap-12">
             <CaseStudyCard
-              image="/tech-summit.jpg"
+              image="/spain-south-summit.jpg"
               title="Global Tech Summit"
               company="Leading Technology Corporation"
-              description="Coordinated a 3-day conference for 500 executives, including private jet arrangements, luxury accommodations, and exclusive evening events."
+              description="Coordinated a 3-day conference for 500 executives, including travel arrangements, luxury accommodations, and exclusive events."
             />
             <CaseStudyCard
-              image="/fashion-event.jpg"
-              title="Fashion Industry Gala"
-              company="International Fashion House"
-              description="Organized a high-profile fashion event with specialized staffing, celebrity management, and seamless logistics across multiple venues."
+              image="/loreal-event.jpg"
+              title="Cosmetic Industry Event"
+              company="International Cosmetic Brand"
+              description="Organized a high-profile event (5 days) with specialized staffing, celebrity management, and seamless logistics across multiple venues."
             />
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function CorporatePage() {
         <div className="relative z-10 max-w-4xl mx-auto text-white text-center">
           <h2 className="text-4xl font-serif mb-12">What Our Clients Say</h2>
           <blockquote className="text-2xl font-serif italic mb-8">
-            "TruChic Experiences transformed our annual leadership summit into an unforgettable experience. Their
+            "Truchic Experiences transformed our annual leadership summit into an unforgettable experience. Their
             attention to detail and luxury service standards are unmatched."
           </blockquote>
           <cite className="text-xl">— Sarah Johnson, CEO of Global Innovations Inc.</cite>
@@ -138,7 +138,7 @@ export default function CorporatePage() {
             Let us handle the complexities while you focus on what matters most - your business and guests.
           </p>
           <Link
-            href="/contact"
+            href="/booking"
             className="bg-[#1B263B] text-white px-8 py-3 rounded-full hover:bg-[#2d3b50] transition inline-block"
           >
             Schedule a Consultation

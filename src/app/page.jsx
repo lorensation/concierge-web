@@ -16,7 +16,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-3xl md:text-5xl font-light mb-4">Truchic Experience</h1>
+          <h1 className="text-3xl md:text-5xl font-light mb-4">Truchic Experiences</h1>
           <h2 className="text-4xl md:text-6xl font-serif mb-6">
             Exclusive Travel & <br />
             Concierge Services
@@ -50,14 +50,19 @@ export default function Home() {
             </button>
             <div className="flex gap-6 overflow-x-auto pb-6">
               <ServiceCard
+                image="/corporate-event-tables.jpg"
+                title="Corporate Travel & Events"
+                description="Seamless business travel solutions adapted to your liking."
+              />
+              <ServiceCard
+                image="/corporate-event-design.jpg"
+                title="Corporate Event Design & Production"
+                description="Innovative and seamless design and execution for high-end corporate events"
+              />
+              <ServiceCard
                 image="/luxury-villa-water.jpg"
                 title="Luxury Travel Planning"
                 description="Tailored itineraries for the discerning traveler"
-              />
-              <ServiceCard
-                image="/corporate-event-tables.jpg"
-                title="Corporate Travel & Events"
-                description="Seamless business travel solutions"
               />
               <ServiceCard
                 image="/vip-concierge.jpg"
@@ -169,7 +174,36 @@ export default function Home() {
               text="Exceptional service and attention to detail. The team went above and beyond."
               rating={5}
             />
-            {/* Add more testimonial cards as needed */}
+            <TestimonialCard
+              name="Alice Johnson"
+              image="/client-review.jpg"
+              text="Outstanding quality and superb customer service. Truly a pleasure to work with."
+              rating={5}
+            />
+            <TestimonialCard
+              name="Carlos Ramirez"
+              image="/client-review.jpg"
+              text="Their professionalism and efficiency exceeded my expectations in every way."
+              rating={5}
+            />
+            <TestimonialCard
+              name="Samantha Lee"
+              image="/client-review.jpg"
+              text="Absolutely wonderful! Every detail was carefully considered, making it a delightful experience."
+              rating={5}
+            />
+            <TestimonialCard
+              name="Michael Thompson"
+              image="/client-review.jpg"
+              text="A five-star experience from start to finish. I couldn’t be more pleased."
+              rating={5}
+            />
+            <TestimonialCard
+              name="Emily Davis"
+              image="/client-review.jpg"
+              text="Truly remarkable service with an attention to detail that truly impressed me."
+              rating={5}
+            />
           </div>
         </div>
       </section>
