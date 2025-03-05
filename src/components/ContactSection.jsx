@@ -5,7 +5,7 @@ import { useState } from "react"
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
+  const [submitStatus, setSubmitStatus] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -25,11 +25,11 @@ export default function ContactSection() {
         throw new Error("Failed to submit form")
       }
 
-      setSubmitStatus("success")
+      setSubmitStatus(true)
       setFormData({ name: "", email: "", message: "" })
     } catch (error) {
       console.error("Submission error:", error)
-      setSubmitStatus("error")
+      setSubmitStatus(false)
     } finally {
       setIsSubmitting(false)
     }
