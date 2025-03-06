@@ -1,21 +1,30 @@
-// src/app/layout.js
-import './globals.css'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import { verifyEnv } from "@/utils/verifyEnv"
+import "./globals.css"
+import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import SkipToContent from "@/components/SkipToContent"
 
 export const metadata = {
-  title: 'Truchic Experiences - Conciergerie',
-  description: 'Luxury travel and concierge services by a professional with 30+ years of experience.'
+  title: "Truchic Experiences - Luxury Travel & Concierge Services",
+  description: "Exclusive luxury travel and concierge services by a professional with 30+ years of experience.",
 }
 
-// "children" is the content of whatever page is currently active
 export default function RootLayout({ children }) {
+  if (!verifyEnv()) {
+    console.error("Missing required environment variables. Please check your configuration.")
+  }
+
   return (
     <html lang="en">
-      <body className="bg-white text-gray-800"> 
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className="bg-white text-gray-800 flex flex-col min-h-screen">
+        <SkipToContent />
         <Navbar />
-        <main className="min-h-screen">
+        <main id="main-content" className="flex-grow pt-20">
           {children}
           <SpeedInsights />
         </main>
@@ -24,4 +33,6 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
+
+
 
