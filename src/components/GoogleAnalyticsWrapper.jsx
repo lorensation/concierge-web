@@ -1,9 +1,13 @@
 "use client"
 
+import { usePathname, useSearchParams } from "next/navigation"
+import { Suspense, useEffect } from "react"
 import Script from "next/script"
-import { useEffect } from "react"
 
-export default function GoogleAnalytics({ GA_MEASUREMENT_ID, pathname, searchParams }) {
+function GoogleAnalyticsInner({ GA_MEASUREMENT_ID }) {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   useEffect(() => {
     const url = pathname + searchParams.toString()
     window.gtag("config", GA_MEASUREMENT_ID, {
@@ -11,6 +15,10 @@ export default function GoogleAnalytics({ GA_MEASUREMENT_ID, pathname, searchPar
     })
   }, [pathname, searchParams, GA_MEASUREMENT_ID])
 
+  return null
+}
+
+export default function GoogleAnalyticsWrapper({ GA_MEASUREMENT_ID }) {
   return (
     <>
       <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
@@ -28,9 +36,10 @@ export default function GoogleAnalytics({ GA_MEASUREMENT_ID, pathname, searchPar
           `,
         }}
       />
+      <Suspense fallback={null}>
+        <GoogleAnalyticsInner GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
+      </Suspense>
     </>
   )
 }
-
-
 

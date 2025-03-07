@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import SkipToContent from "@/components/SkipToContent"
-import GoogleAnalytics from "@/components/GoogleAnalytics"
+import GoogleAnalyticsWrapper from "@/components/GoogleAnalyticsWrapper"
 
 export const metadata = {
   title: "Truchic Experiences - Luxury Travel & Concierge Services",
@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/*<GoogleAnalytics />*/}
       </head>
       <body className="bg-white text-gray-800 flex flex-col min-h-screen">
         <SkipToContent />
@@ -31,6 +30,7 @@ export default function RootLayout({ children }) {
           <SpeedInsights />
         </main>
         <Footer />
+        <GoogleAnalyticsWrapper GA_MEASUREMENT_ID="G-W1SJJ0L1K4" />
       </body>
     </html>
   )
