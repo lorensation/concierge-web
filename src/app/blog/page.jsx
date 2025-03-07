@@ -18,11 +18,11 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: "luxury-travel-trends-2023",
-      title: "Top Luxury Travel Trends for 2023",
+      title: "Top Luxury Travel Trends for 2025",
       excerpt:
         "Discover the emerging trends shaping luxury travel experiences this year, from private villa retreats to sustainable luxury initiatives.",
-      image: "/blog-luxury-trends.jpg",
-      date: "June 15, 2023",
+      image: "/santorini.jpg",
+      date: "June 15, 2024",
       category: "Travel Trends",
     },
     {
@@ -30,8 +30,8 @@ export default function BlogPage() {
       title: "Hidden Gems of the Mediterranean",
       excerpt:
         "Explore the lesser-known luxury destinations along the Mediterranean coastline that offer exclusive experiences away from the crowds.",
-      image: "/blog-mediterranean.jpg",
-      date: "July 22, 2023",
+      image: "/amalfi-coast.jpg",
+      date: "July 22, 2024",
       category: "Destinations",
     },
     {
@@ -39,8 +39,8 @@ export default function BlogPage() {
       title: "The Ultimate Guide to Corporate Retreat Planning",
       excerpt:
         "Learn how to create memorable and productive corporate retreats that combine luxury accommodations with team-building activities.",
-      image: "/blog-corporate-retreat.jpg",
-      date: "August 10, 2023",
+      image: "/corporate-people-gathering.jpg",
+      date: "October 10, 2024",
       category: "Corporate Events",
     },
   ]
@@ -49,7 +49,7 @@ export default function BlogPage() {
     <main className="bg-white">
       {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center justify-center">
-        <div className="absolute inset-0 bg-[url('/blog-banner.jpg')] bg-cover bg-center bg-no-repeat"></div>
+        <div className="absolute inset-0 bg-[url('/banner-about-2.jpg')] bg-cover bg-center bg-no-repeat"></div>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-6xl font-serif mb-4">Luxury Travel Insights</h1>
@@ -132,4 +132,3 @@ function BlogPostCard({ post }) {
     </article>
   )
 }
-
