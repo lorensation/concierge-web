@@ -5,6 +5,7 @@ import Footer from "../components/Footer"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import SkipToContent from "@/components/SkipToContent"
 import GoogleAnalyticsWrapper from "@/components/GoogleAnalyticsWrapper"
+import CookieConsent from "@/components/CookieConsent"
 
 export const metadata = {
   title: "Truchic Experiences - Luxury Travel & Concierge Services",
@@ -31,7 +32,9 @@ export default function RootLayout({ children }) {
         </main>
         <Footer />
         <GoogleAnalyticsWrapper GA_MEASUREMENT_ID="G-W1SJJ0L1K4" />
+        <CookieConsent />
       </body>
     </html>
   )
 }
+

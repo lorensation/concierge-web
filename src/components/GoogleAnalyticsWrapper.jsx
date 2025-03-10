@@ -3,22 +3,31 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import { Suspense, useEffect } from "react"
 import Script from "next/script"
+import { getAnalyticsCookie } from "@/utils/cookieManager"
 
 function GoogleAnalyticsInner({ GA_MEASUREMENT_ID }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    const url = pathname + searchParams.toString()
-    window.gtag("config", GA_MEASUREMENT_ID, {
-      page_path: url,
-    })
+    if (getAnalyticsCookie() === "true") {
+      const url = pathname + searchParams.toString()
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        page_path: url,
+      })
+    }
   }, [pathname, searchParams, GA_MEASUREMENT_ID])
 
   return null
 }
 
 export default function GoogleAnalyticsWrapper({ GA_MEASUREMENT_ID }) {
+  const analyticsEnabled = getAnalyticsCookie() === "true"
+
+  if (!analyticsEnabled) {
+    return null
+  }
+
   return (
     <>
       <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
