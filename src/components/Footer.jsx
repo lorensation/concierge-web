@@ -14,10 +14,16 @@ export default function Footer() {
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <Image src="/TruchicExperiencesFinalLogo.jpg" alt="Truchic Experiences" width={200} height={80} className="mb-6" />
+            <Image
+              src="/TruchicExperiencesFinalLogo.jpg"
+              alt="Truchic Experiences"
+              width={200}
+              height={80}
+              className="mb-6"
+            />
             <p className="text-gray-300 max-w-sm">
-              Exclusive Travel And Event Services, Delivering Seamless Luxury And Personalized Journeys Backed By
-              30+ Years Of Expertise.
+              Exclusive Travel And Event Services, Delivering Seamless Luxury And Personalized Journeys Backed By 30+
+              Years Of Expertise.
             </p>
           </div>
 
@@ -36,13 +42,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-gray-300 hover:text-white transition">
+                <Link href="/booking" className="text-gray-300 hover:text-white transition">
                   Services
                 </Link>
               </li>
               <li>
                 <Link href="/corporate" className="text-gray-300 hover:text-white transition">
                   Corporate Events
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-gray-300 hover:text-white transition">
+                  Blog
                 </Link>
               </li>
               <li>
@@ -125,12 +136,12 @@ export default function Footer() {
             <Link href="/terms" className="text-gray-300 hover:text-white text-sm transition">
               Terms and Conditions
             </Link>
+            <Link href="/privacy#settings" className="text-gray-300 hover:text-white text-sm transition">
+              Privacy settings
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   )
 }
-
-
-

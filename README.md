@@ -108,6 +108,33 @@ This project includes a newsletter subscription system and subscriber management
 - Access the admin dashboard at `/admin/subscribers` (password: admin123).
 - Use the export feature in the admin dashboard to download subscriber data.
 
+## Cookie Management System
+
+This project includes a comprehensive cookie management system that complies with GDPR and similar privacy regulations:
+
+- Users are presented with a cookie consent banner on their first visit
+- Users can choose to accept or decline different types of cookies (analytics and marketing)
+- A Privacy Settings page allows users to update their cookie preferences at any time
+- Google Analytics and other tracking scripts only load if the user has accepted the relevant cookies
+
+### Key Files:
+- `src/components/CookieConsent.jsx`: The cookie consent banner component
+- `src/utils/cookieManager.js`: Utility functions for managing cookies
+- `src/app/privacy-settings/page.jsx`: Page for managing cookie preferences
+- `src/components/GoogleAnalyticsWrapper.jsx`: Wrapper for Google Analytics that respects user preferences
+
+### Usage:
+- The CookieConsent component is rendered in the main layout and appears for new visitors
+- The Privacy Settings page is accessible via a link in the footer
+- Use the utility functions in cookieManager.js when implementing new features that may require cookies
+
+### Testing:
+Ensure to test the following scenarios:
+1. New visitor experience with the cookie banner
+2. Accepting/declining different combinations of cookies
+3. Updating preferences via the Privacy Settings page
+4. Verifying that Google Analytics and any marketing scripts respect user preferences
+
 ## Deployment
 
 This project is set up to be easily deployed on Vercel. Connect your GitHub repository to Vercel for automatic deployments.
