@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import {
   setConsentCookie,
   getConsentCookie,
@@ -22,7 +23,6 @@ export default function CookieConsent() {
     if (consent === undefined) {
       setShowBanner(true)
     } else if (consent === "true") {
-      // If consent was previously given, set cookies according to saved preferences
       const analyticsPref = localStorage.getItem(ANALYTICS_COOKIE)
       const marketingPref = localStorage.getItem(MARKETING_COOKIE)
       setAnalyticsCookie(analyticsPref === "true" ? "true" : "false")
@@ -31,38 +31,22 @@ export default function CookieConsent() {
   }, [])
 
   const acceptCookies = () => {
-    // Set the main consent cookie
     setConsentCookie("true")
-
-    // Set individual cookie preferences
     setAnalyticsCookie(preferences.analytics ? "true" : "false")
     setMarketingCookie(preferences.marketing ? "true" : "false")
-
-    // Save preferences to localStorage for future reference
     localStorage.setItem(ANALYTICS_COOKIE, preferences.analytics ? "true" : "false")
     localStorage.setItem(MARKETING_COOKIE, preferences.marketing ? "true" : "false")
-
     setShowBanner(false)
-
-    // Reload the page to ensure all components respect the new cookie settings
     window.location.reload()
   }
 
   const declineCookies = () => {
-    // Set the main consent cookie to false
     setConsentCookie("false")
-
-    // Ensure analytics and marketing cookies are set to false
     setAnalyticsCookie("false")
     setMarketingCookie("false")
-
-    // Clear any previously saved preferences
     localStorage.removeItem(ANALYTICS_COOKIE)
     localStorage.removeItem(MARKETING_COOKIE)
-
     setShowBanner(false)
-
-    // Reload the page to ensure all components respect the new cookie settings
     window.location.reload()
   }
 
@@ -80,9 +64,9 @@ export default function CookieConsent() {
       <div className="max-w-7xl mx-auto">
         <p className="text-sm text-gray-700 mb-4">
           We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-          <a href="/cookie-policy" className="text-[#1B263B] hover:underline ml-1">
+          <Link href="/cookie-policy" className="text-[#1B263B] hover:underline ml-1">
             Learn more
-          </a>
+          </Link>
         </p>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
           <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-0">
@@ -124,5 +108,4 @@ export default function CookieConsent() {
     </div>
   )
 }
-
 
