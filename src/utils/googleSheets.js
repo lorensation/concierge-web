@@ -21,7 +21,7 @@ export async function getGoogleSheetsClient() {
 }
 
 // Function to add an email to the Google Sheet
-export async function addEmailToSheet(email, name = "", source = "newsletter") {
+export async function addEmailToSheet(email, name = "", source = "newsletter", phone = "") {
   try {
     const sheets = await getGoogleSheetsClient()
     const spreadsheetId = process.env.GOOGLE_SHEET_ID
@@ -33,7 +33,7 @@ export async function addEmailToSheet(email, name = "", source = "newsletter") {
     // Check if email already exists to avoid duplicates
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Sheet1!A:C", // Assuming Sheet1 is your sheet name
+      range: "Sheet1!A:E", // Updated to include the new phone column
     })
 
     const rows = response.data.values || []
@@ -44,15 +44,15 @@ export async function addEmailToSheet(email, name = "", source = "newsletter") {
       return { success: true, message: "Email already subscribed" }
     }
 
-    // Add new row with email, name, and timestamp
+    // Add new row with email, name, source, timestamp, and phone
     const currentDate = new Date().toISOString()
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: "Sheet1!A:D",
+      range: "Sheet1!A:E", // Updated to include the new phone column
       valueInputOption: "USER_ENTERED",
       insertDataOption: "INSERT_ROWS",
       resource: {
-        values: [[email, name, source, currentDate]],
+        values: [[email, name, source, currentDate, phone]],
       },
     })
 
@@ -62,4 +62,6 @@ export async function addEmailToSheet(email, name = "", source = "newsletter") {
     throw error
   }
 }
+
+
 

@@ -13,7 +13,7 @@ export async function POST(req) {
 
     // Add email to Google Sheet for newsletter subscriptions
     try {
-      await addEmailToSheet(user.email, `${user.name} ${user.surname || ""}`, "booking")
+      await addEmailToSheet(user.email, `${user.name} ${user.surname || ""}`, "booking", user.phone)
     } catch (sheetError) {
       console.error("Error adding email to sheet:", sheetError)
       // Continue with booking process even if adding to sheet fails

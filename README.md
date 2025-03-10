@@ -87,6 +87,27 @@ npm start
 - Terms and Conditions page
 - Privacy Policy page
 
+## Newsletter and Subscriber Management
+
+This project includes a newsletter subscription system and subscriber management features:
+
+- Users can subscribe to the newsletter on the blog page.
+- Emails from contact form submissions and bookings are automatically added to the subscriber list.
+- An admin dashboard is available at `/admin/subscribers` to view and manage subscribers.
+- Subscribers can be exported as a CSV file for use in email marketing tools.
+
+### Setup:
+
+1. Create a Google Sheet with columns: Email, Name, Source, Date.
+2. Share the sheet with the Google Service Account email.
+3. Add the `GOOGLE_SHEET_ID` to your environment variables.
+
+### Usage:
+
+- The newsletter subscription form is available on the blog page.
+- Access the admin dashboard at `/admin/subscribers` (password: admin123).
+- Use the export feature in the admin dashboard to download subscriber data.
+
 ## Deployment
 
 This project is set up to be easily deployed on Vercel. Connect your GitHub repository to Vercel for automatic deployments.

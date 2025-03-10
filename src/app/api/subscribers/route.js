@@ -18,7 +18,7 @@ export async function GET(req) {
     // Get data from the sheet
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Sheet1!A:D", // Assuming Sheet1 is your sheet name with columns: Email, Name, Source, Date
+      range: "Sheet1!A:E", // Updated to include the new phone column
     })
 
     const rows = response.data.values || []
@@ -31,6 +31,7 @@ export async function GET(req) {
             name: row[1] || "",
             source: row[2] || "newsletter",
             date: row[3] || new Date().toISOString(),
+            phone: row[4] || "",
           }))
         : []
 
@@ -40,4 +41,3 @@ export async function GET(req) {
     return NextResponse.json({ error: "Failed to fetch subscribers" }, { status: 500 })
   }
 }
-

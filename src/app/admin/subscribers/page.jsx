@@ -119,6 +119,9 @@ export default function SubscribersPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date Added
                   </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Phone
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -142,6 +145,7 @@ export default function SubscribersPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(subscriber.date).toLocaleDateString()}
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap">{subscriber.phone || "-"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -156,9 +160,12 @@ export default function SubscribersPage() {
             onClick={() => {
               const csvContent =
                 "data:text/csv;charset=utf-8," +
-                "Email,Name,Source,Date\n" +
+                "Email,Name,Source,Date,Phone\n" +
                 subscribers
-                  .map((s) => `${s.email},"${s.name || ""}",${s.source},"${new Date(s.date).toLocaleDateString()}"`)
+                  .map(
+                    (s) =>
+                      `${s.email},"${s.name || ""}",${s.source},"${new Date(s.date).toLocaleDateString()}","${s.phone || ""}"`,
+                  )
                   .join("\n")
 
               const encodedUri = encodeURI(csvContent)
