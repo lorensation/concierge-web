@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import NewsletterSubscribe from "@/components/NewsletterSubscribe"
 
 export const metadata = {
   title: "Luxury Travel Blog | Truchic Experiences",
@@ -77,20 +78,7 @@ export default function BlogPage() {
           <p className="text-gray-600 mb-8">
             Stay updated with the latest luxury travel insights, exclusive offers, and destination inspiration.
           </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="px-4 py-3 flex-grow border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1B263B] focus:border-transparent"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-[#1B263B] text-white px-6 py-3 rounded-md hover:bg-[#2d3b50] transition"
-            >
-              Subscribe
-            </button>
-          </form>
+          <NewsletterSubscribe />
         </div>
       </section>
     </main>

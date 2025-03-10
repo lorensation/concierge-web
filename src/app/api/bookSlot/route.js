@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 import { format } from "date-fns"
+import { addEmailToSheet } from "@/utils/googleSheets"
 
 export async function POST(req) {
   try {
@@ -8,6 +9,14 @@ export async function POST(req) {
 
     if (!slot || !user) {
       return NextResponse.json({ error: "Missing slot or user information" }, { status: 400 })
+    }
+
+    // Add email to Google Sheet for newsletter subscriptions
+    try {
+      await addEmailToSheet(user.email, `${user.name} ${user.surname || ""}`, "booking")
+    } catch (sheetError) {
+      console.error("Error adding email to sheet:", sheetError)
+      // Continue with booking process even if adding to sheet fails
     }
 
     const adminEmail = process.env.BOOKING_NOTIFICATION_EMAIL
@@ -88,4 +97,3 @@ export async function POST(req) {
     return NextResponse.json({ error: "Failed to process booking" }, { status: 500 })
   }
 }
-

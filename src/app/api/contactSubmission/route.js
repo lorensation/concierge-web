@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
+import { addEmailToSheet } from "@/utils/googleSheets"
 
 export async function POST(req) {
   try {
@@ -11,6 +12,14 @@ export async function POST(req) {
     }
 
     console.log("Received form data:", { name, email, message })
+
+    // Add email to Google Sheet for newsletter subscriptions
+    try {
+      await addEmailToSheet(email, name, "contact_form")
+    } catch (sheetError) {
+      console.error("Error adding email to sheet:", sheetError)
+      // Continue with email sending even if adding to sheet fails
+    }
 
     // Create email transporter
     const transporter = nodemailer.createTransport({
@@ -80,7 +89,3 @@ export async function POST(req) {
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 })
   }
 }
-
-
-
-
