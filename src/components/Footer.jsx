@@ -111,16 +111,16 @@ export default function Footer() {
               >
                 <SiInstagram className="w-5 h-5 text-[#1B263B]" />
               </a>
-              <a
+              {/*<a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white rounded-full p-2 hover:bg-gray-200 transition"
               >
                 <SiX className="w-5 h-5 text-[#1B263B]" />
-              </a>
+              </a>*/}
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/ana-trucharte-68869750/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white rounded-full p-2 hover:bg-gray-200 transition"

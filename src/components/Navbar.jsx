@@ -63,6 +63,9 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden fixed inset-0 bg-[#1B263B] z-40 flex flex-col items-center justify-center">
+          <button className="absolute top-4 right-8 text-white" onClick={toggleMenu} aria-label="Close menu">
+            <X size={24} />
+          </button>
           <NavLink href="/about" mobile onClick={toggleMenu}>
             About
           </NavLink>
@@ -99,12 +102,3 @@ function NavLink({ href, children, mobile, onClick }) {
     </Link>
   )
 }
-
-
-
-
-
-
-
-
-

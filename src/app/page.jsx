@@ -1,8 +1,34 @@
+"use client"
+
+import { useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 export default function Home() {
+  const servicesRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScroll = () => {
+    if (servicesRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = servicesRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
+    }
+  }
+
+  const scroll = (direction) => {
+    if (servicesRef.current) {
+      const scrollAmount = 300 // Adjust this value to change scroll distance
+      const newScrollPosition = servicesRef.current.scrollLeft + (direction === "left" ? -scrollAmount : scrollAmount)
+      servicesRef.current.scrollTo({
+        left: newScrollPosition,
+        behavior: "smooth",
+      })
+    }
+  }
+
   return (
     <main className="bg-[#0B0F15] text-white">
       {/* Hero Section */}
@@ -45,10 +71,14 @@ export default function Home() {
             </p>
           </div>
           <div className="relative">
-            <button className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full">
+            <button
+              className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full ${!canScrollLeft && "opacity-50 cursor-not-allowed"}`}
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+            >
               <ChevronLeft className="w-6 h-6" />
             </button>
-            <div className="flex gap-6 overflow-x-auto pb-6">
+            <div ref={servicesRef} className="flex gap-6 overflow-x-auto pb-6 scroll-smooth" onScroll={checkScroll}>
               <ServiceCard
                 image="/corporate-event-tables.jpg"
                 title="Corporate Travel & Events"
@@ -70,7 +100,11 @@ export default function Home() {
                 description="Exclusive access and personalized assistance"
               />
             </div>
-            <button className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full">
+            <button
+              className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 p-2 rounded-full ${!canScrollRight && "opacity-50 cursor-not-allowed"}`}
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+            >
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>
@@ -245,7 +279,3 @@ function TestimonialCard({ name, image, text, rating }) {
     </div>
   )
 }
-
-
-
-

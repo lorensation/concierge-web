@@ -118,7 +118,7 @@ export default function CorporatePage() {
 
       {/* Testimonial Section */}
       <section className="relative py-20 px-4">
-        <Image src="/corporate-interior.jpg" alt="Luxury Corporate Interior" fill className="object-cover" />
+        <Image src="/corporate-table-interior.jpg" alt="Luxury Corporate Interior" fill className="object-cover" />
         <div className="absolute inset-0 bg-black/75" />
         <div className="relative z-10 max-w-4xl mx-auto text-white text-center">
           <h2 className="text-4xl font-serif mb-12">What Our Clients Say</h2>
